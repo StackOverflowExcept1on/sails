@@ -4,7 +4,7 @@ members = ["cargo:rs/cli"]
 # Config for 'dist'
 [dist]
 # The preferred dist version to use in CI (Cargo.toml SemVer syntax)
-cargo-dist-version = "0.32.0"
+cargo-dist-version = "0.31.0"
 # CI backends to support
 ci = "github"
 # The installers to generate for each app
@@ -26,17 +26,24 @@ targets = [
 install-path = "CARGO_HOME"
 # Whether to install an updater program
 install-updater = true
-# Whether to consider the binaries in a package for distribution (defaults true)
+# Globally disable dist, so we can opt-in specific packages
 dist = false
-# Build only the required packages, and individually
+# Use precise builds to avoid workspace ambiguity
 precise-builds = true
 # Specify which packages should be distributed
 packages = ["sails-cli"]
-# Which actions to run on pull requests
+# Run 'dist plan' in PRs to verify configuration (don't upload artifacts)
 pr-run-mode = "plan"
-# Whether dist should create a Github Release or use an existing draft
+# Don't create a release; wait for the existing draft from rs-publish.yml
 create-release = false
-# Skip checking whether the specified configuration files are up to date
+# Allow manual edits to the CI workflow name and triggers. 
+# This config is used specifically for managing the .github/workflows/bin-release.yml file 
+# which is called by .github/workflows/rs-release.yml.
+# IMPORTANT: To regenerate or update the workflow, you must temporarily disable 'allow-dirty', 
+# run 'dist generate', and then re-enable it to preserve manual customizations:
+# 1. Restore 'workflow_call' trigger instead of 'on: push'.
+# 2. Add 'ref: ${{ inputs.tag }}' to all 'actions/checkout' steps.
+# 3. Update 'dist plan' and 'dist host' commands to use '--tag=${{ inputs.tag }}'.
 allow-dirty = ["ci"]
-# Whether +crt-static should be used on msvc
+# Static link the C runtime on Windows for better portability
 msvc-crt-static = true
