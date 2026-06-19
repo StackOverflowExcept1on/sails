@@ -26,7 +26,7 @@ targets = [
 # Path that installers should place binaries in
 install-path = "CARGO_HOME"
 # Whether to install an updater program
-install-updater = true
+install-updater = false
 # Whether to consider the binaries in a package for distribution (defaults true)
 dist = false
 # Build only the required packages, and individually
