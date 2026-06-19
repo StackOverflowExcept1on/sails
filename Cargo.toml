@@ -3,7 +3,7 @@ version = "1.0.1"
 authors = ["Gear Technologies"]
 edition = "2024"
 license = "GPL-3.0"
-repository = "https://github.com/gear-tech/sails"
+repository = "https://github.com/StackOverflowExcept1on/sails"
 rust-version = "1.93"
 
 [workspace]
