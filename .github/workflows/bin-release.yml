@@ -142,6 +142,10 @@ jobs:
       - name: Install dependencies
         run: |
           ${{ matrix.packages_install }}
+      - name: Setup Android NDK
+        uses: nttld/setup-ndk@v1
+        with:
+          ndk-version: r27d
       - name: Build artifacts
         run: |
           # Actually do builds and make zips and whatnot
