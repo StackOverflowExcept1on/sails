@@ -1,0 +1,22 @@
+# Temporary manual smoke test for the cargo-dist reusable workflow.
+# Running it builds and uploads release artifacts for the existing rs/v1.0.1 tag.
+name: '[rs] Binary Release Smoke Test'
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Git tag to build and upload
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  binaries:
+    name: Build Binaries for ${{ inputs.tag }}
+    uses: ./.github/workflows/bin-release.yml
+    with:
+      tag: ${{ inputs.tag }}
+    secrets: inherit
